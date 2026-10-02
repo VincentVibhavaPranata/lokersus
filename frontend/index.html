@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"><title>LokerSus: cek lowongan kerja ini sus atau nggak</title>
+<meta name="description" content="Tempel teks lowongan kerja berbahasa Inggris, AI bantu cek apakah mencurigakan."></head>
+<body>
+<header><div class="wrap"><a class="logo" href="index.html">Loker<span>Sus</span></a><nav><a href="index.html" aria-current="page">Cek loker</a><a href="cara-kerja.html">Cara kerja</a></nav></div></header>
+<main class="wrap">
+  <h1>Loker ini sus nggak?</h1>
+  <p class="lead">Tempel teks lowongan kerja <strong>berbahasa Inggris</strong> yang bikin kamu ragu. AI kami cek apakah polanya mirip lowongan palsu.</p>
+  <form id="check-form">
+    <label for="job-text" class="sr">Teks lowongan</label>
+    <textarea id="job-text" placeholder="Paste the job posting here..."></textarea>
+    <details class="extra">
+      <summary>Info tambahan (opsional)</summary>
+      <p>Model juga melihat kelengkapan lowongan. Kalau kamu tidak mengisi ini, semuanya dianggap kosong dan skor bisa jadi lebih tinggi dari seharusnya.</p>
+      <div class="checks">
+        <label><input type="checkbox" id="has_company_profile"> Ada profil perusahaan</label>
+        <label><input type="checkbox" id="has_requirements"> Ada persyaratan pelamar</label>
+        <label><input type="checkbox" id="has_benefits"> Ada benefit</label>
+        <label><input type="checkbox" id="has_salary_range"> Ada rentang gaji</label>
+        <label><input type="checkbox" id="has_company_logo"> Ada logo perusahaan</label>
+        <label><input type="checkbox" id="telecommuting"> Bisa kerja remote</label>
+        <label><input type="checkbox" id="has_questions"> Ada pertanyaan screening</label>
+      </div>
+    </details>
+    <div class="row">
+      <button class="btn" id="check-btn" type="submit">Cek lowongan</button>
+      <button class="btn ghost" id="sample-btn" type="button">Pakai contoh</button>
+      <span class="count" id="count">0 / 5000</span>
+    </div>
+    <div class="error" id="error" role="alert" hidden></div>
+  </form>
+  <section id="result" aria-live="polite" hidden>
+    <h2 id="verdict"></h2>
+    <p id="verdict-note"></p>
+    <div class="meter" id="meter"><div class="marker" id="marker"></div></div>
+    <p class="score" id="score"></p>
+    <div id="reasons-wrap"><strong>Yang bikin curiga:</strong><ul id="reasons"></ul></div>
+    <p class="note strong" id="lang-note" hidden>Teks ini kelihatannya bahasa Indonesia. Model dilatih dengan lowongan bahasa Inggris, jadi hasil ini tidak bisa dipercaya. Pakai teks bahasa Inggris.</p>
+    <p class="note" id="assumed-note" hidden>Info tambahan tidak diisi, jadi dianggap kosong. Ini bisa menaikkan skor. Isi bagian "Info tambahan" untuk hasil yang lebih adil.</p>
+    <p class="note" id="demo-note" hidden>Ini mode demo: hasilnya dari aturan kata kunci sederhana, bukan dari model AI.</p>
+  </section>
+</main>
+<footer><div class="wrap">Hasil model AI itu perkiraan, bukan jaminan. Selalu cek langsung ke perusahaan resminya.</div></footer>
+<script src="js/config.js"></script><script src="js/api.js"></script><script src="js/app.js"></script>
+</body></html>

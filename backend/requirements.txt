@@ -1,0 +1,11 @@
+# PENTING: samakan versi scikit-learn, xgboost, numpy, scipy, joblib dengan yang dipakai di Colab.
+# Cek di Colab:  !pip freeze | grep -i -E "scikit-learn|xgboost|numpy|scipy|joblib"
+# Lalu tulis ulang di bawah dengan format  nama==versi
+fastapi
+uvicorn[standard]
+pydantic>=2
+joblib
+numpy
+scipy
+scikit-learn
+xgboost

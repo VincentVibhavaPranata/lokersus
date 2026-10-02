@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"><title>Cara kerja LokerSus</title></head>
+<body>
+<header><div class="wrap"><a class="logo" href="index.html">Loker<span>Sus</span></a><nav><a href="index.html">Cek loker</a><a href="cara-kerja.html" aria-current="page">Cara kerja</a></nav></div></header>
+<main class="wrap">
+  <h1>Cara kerja</h1>
+  <p class="lead">Kamu tempel teks lowongan, model AI membacanya, lalu memberi peluang seberapa mirip dengan lowongan palsu.</p>
+  <h2>Modelnya</h2>
+  <p>Model dilatih dari dataset publik lowongan kerja berbahasa Inggris: 17.880 lowongan, sekitar 4,8% di antaranya palsu. Teks diubah jadi angka dengan TF-IDF, ditambah beberapa ciri seperti jumlah huruf kapital, tanda seru, dan kelengkapan lowongan. Hasil akhirnya gabungan tiga model: Linear SVM, Random Forest, dan XGBoost.</p>
+  <h2>Cara baca hasil</h2>
+  <table class="table">
+    <tr><th>Peluang palsu</th><th>Artinya</th></tr>
+    <tr><td>Di bawah 27%</td><td>Belum ada tanda kuat lowongan palsu</td></tr>
+    <tr><td>27% sampai 59%</td><td>Dilabeli mencurigakan, cek dulu</td></tr>
+    <tr><td>60% ke atas</td><td>Sangat mirip lowongan palsu</td></tr>
+  </table>
+  <h2>Batasannya</h2>
+  <ul>
+    <li>Model hanya paham teks <strong>bahasa Inggris</strong>. Lowongan bahasa Indonesia tidak bisa dinilai dengan benar.</li>
+    <li>Data latihnya dari dataset tertentu, jadi pola penipuan terbaru bisa lolos.</li>
+    <li>Lowongan palsu yang ditulis rapi bisa lolos, dan lowongan asli yang ditulis asal bisa kena curiga.</li>
+  </ul>
+  <h2>Tanda lowongan palsu yang umum</h2>
+  <ul>
+    <li>Minta bayaran di awal, seperti biaya pendaftaran atau seragam</li>
+    <li>Gaji besar tanpa syarat dan tanpa wawancara</li>
+    <li>Kontak hanya lewat WhatsApp atau Telegram pribadi</li>
+    <li>Menekan kamu supaya daftar secepatnya</li>
+  </ul>
+</main>
+<footer><div class="wrap">Hasil model AI itu perkiraan, bukan jaminan. Selalu cek langsung ke perusahaan resminya.</div></footer>
+</body></html>
