@@ -4,17 +4,22 @@
 
 **Cek lowongan kerja ini sus atau nggak, pakai AI.**
 
+**[🌐 Coba Live Demo](https://lokersus-frontend.vercel.app/index.html)**
+
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-backend-009688?logo=fastapi&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-F7931E?logo=scikitlearn&logoColor=white)
 ![XGBoost](https://img.shields.io/badge/XGBoost-ensemble-189AB4)
 ![Frontend](https://img.shields.io/badge/Frontend-HTML%20%7C%20CSS%20%7C%20JS-6C4DFF)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-000000?logo=vercel&logoColor=white)](https://lokersus-frontend.vercel.app/index.html)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 </div>
 
 <!-- TODO: tambahkan screenshot tampilan web, misal docs/images/screenshot-home.png -->
 
 ## Daftar Isi
+- [Live Demo](#live-demo)
 - [Tentang Proyek](#tentang-proyek)
 - [Fitur](#fitur)
 - [Cara Kerja](#cara-kerja)
@@ -31,6 +36,16 @@
 - [Rencana Pengembangan](#rencana-pengembangan)
 - [Disclaimer](#disclaimer)
 - [Kredit](#kredit)
+
+## Live Demo
+**[lokersus-frontend.vercel.app](https://lokersus-frontend.vercel.app/index.html)**
+
+Cara mencoba:
+1. Buka link di atas.
+2. Tempel teks lowongan kerja **berbahasa Inggris** (atau klik "Pakai contoh").
+3. Klik "Cek lowongan", lalu lihat peluang palsu dan verdict-nya.
+
+> Backend memakai paket gratis Render yang "tidur" kalau 15 menit tidak ada pengunjung. Klik pertama bisa butuh sekitar 1 menit, setelah itu normal.
 
 ## Tentang Proyek
 **Loker Sus** adalah aplikasi web yang membantu pencari kerja mengecek apakah sebuah lowongan kerja mencurigakan. Pengguna menempelkan teks lowongan, lalu model machine learning memberi **peluang lowongan itu palsu** beserta verdict yang mudah dibaca (*Kayaknya legit*, *Hati-hati*, atau *Sus banget*).
@@ -230,17 +245,18 @@ loker-sus-fullstack/
    pip install -r requirements.txt
    uvicorn main:app --reload
    ```
-4. **Hubungkan frontend.** Di `frontend/js/config.js` ubah:
+4. **Hubungkan frontend ke backend lokal.** Di `frontend/js/config.js` ubah (versi yang sudah di-deploy berisi alamat backend Render):
    ```js
-   API_URL: "/predict"
+   API_URL: "http://127.0.0.1:8000/predict"
    ```
 5. **Buka** http://127.0.0.1:8000 (backend ikut menyajikan frontend). Dokumentasi API ada di http://127.0.0.1:8000/docs.
 
-> Tanpa langkah 4, web jalan di **mode demo**: hasilnya dari aturan kata kunci sederhana, bukan dari model AI.
+> Kalau `API_URL` dikosongkan, web jalan di **mode demo**: hasilnya dari aturan kata kunci sederhana, bukan dari model AI.
 
-Kalau frontend dibuka terpisah (misal lewat Live Server), pakai `API_URL: "http://127.0.0.1:8000/predict"`.
+Kalau frontend dibuka dari alamat backend yang sama (`http://127.0.0.1:8000`), `API_URL: "/predict"` juga bisa dipakai.
 
 ## Dokumentasi API
+Backend yang sudah online: https://lokersus.onrender.com (dokumentasi interaktif di [/docs](https://lokersus.onrender.com/docs)).
 
 ### `GET /health`
 Cek server hidup.
@@ -299,8 +315,24 @@ curl -X POST http://127.0.0.1:8000/predict \
 **Frontend** (`frontend/js/config.js`): `API_URL`, `MAX_CHARS`, dan `THRESHOLDS` (`warn` untuk batas FAKE, `sus` untuk batas "Sus banget").
 
 ## Deploy
-- **Paling gampang (satu layanan):** deploy folder `backend` dan `frontend` bersama di Render, Railway, atau Hugging Face Spaces. Start command: `uvicorn main:app --host 0.0.0.0 --port $PORT`. Set `API_URL: "/predict"`.
-- **Frontend terpisah** (Vercel atau Netlify): set `ALLOWED_ORIGINS` di backend ke domain frontend, dan isi `API_URL` dengan URL lengkap backend. Jangan biarkan `ALLOWED_ORIGINS=*` di produksi.
+Versi online saat ini:
+
+| Bagian | Platform | Alamat |
+|---|---|---|
+| Frontend | Vercel (Root Directory `frontend`) | https://lokersus-frontend.vercel.app |
+| Backend (API) | Render, paket gratis (Root Directory `backend`) | https://lokersus.onrender.com |
+
+**Backend di Render**
+- Build Command: `pip install -r requirements.txt`
+- Start Command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+- Environment variable: `PYTHON_VERSION` (samakan dengan environment training) dan `ALLOWED_ORIGINS` (domain frontend, opsional)
+- Pastikan 3 file `.pkl` ada di `backend/models/` dan versi library di `requirements.txt` sama dengan environment training.
+
+**Frontend di Vercel**
+- Framework Preset: `Other`, tanpa Build Command.
+- Pastikan `API_URL` di `frontend/js/config.js` berisi alamat backend lengkap: `https://lokersus.onrender.com/predict`.
+
+**Catatan paket gratis Render:** RAM 512 MB dan 0,1 CPU, layanan tidur setelah sekitar 15 menit tanpa trafik, dan bangun lagi dalam sekitar 1 menit. Backend juga ikut menyajikan salinan frontend di alamat utamanya karena folder `frontend/` ada di repo.
 
 ## Rencana Pengembangan
 - [ ] Dukungan lowongan bahasa Indonesia (dataset dan model berbahasa Indonesia, atau langkah terjemahan).
@@ -313,10 +345,12 @@ curl -X POST http://127.0.0.1:8000/predict \
 Hasil Loker Sus adalah **perkiraan dari model machine learning** dan bisa salah. Selalu verifikasi lowongan lewat situs resmi perusahaan, jangan transfer uang, dan jangan bagikan dokumen pribadi sebelum yakin lowongannya sah.
 
 ## Kredit
-- **Model AI dan pipeline machine learning:** Vincent
-- **Frontend dan backend:** <!-- TODO: isi nama -->
+- **Model AI dan pipeline machine learning:** Vincent Vibhava Pranata
+- **Frontend dan backend (API):** Vincent Vibhava Pranata, dibantu Claude (Anthropic)
 - **Dataset:** EMSCAD (Employment Scam Aegean Dataset), via Kaggle
 - **Library:** scikit-learn, XGBoost, imbalanced-learn, SHAP, FastAPI, pandas, matplotlib, seaborn, WordCloud
 
 ## Lisensi
-<!-- TODO: pilih lisensi (misal MIT) dan tambahkan file LICENSE -->
+Proyek ini memakai lisensi MIT. Lihat file [LICENSE](LICENSE).
+
+Dataset EMSCAD punya ketentuan sendiri. Cek halaman dataset di Kaggle untuk syarat pemakaian.
